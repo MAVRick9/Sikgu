@@ -40,10 +40,6 @@ export async function setupVite(app: Express, server: Server) {
     appType: "custom",
   });
 
-  // Serve planterior static files (models, textures, etc.)
-  const planteriorPublic = path.resolve(import.meta.dirname, "..", "public", "planterior");
-  app.use("/planterior-assets", express.static(planteriorPublic));
-
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
@@ -79,10 +75,6 @@ export function serveStatic(app: Express) {
       `Could not find the build directory: ${distPath}, make sure to build the client first`,
     );
   }
-
-  // Serve planterior static files (models, textures, etc.)
-  const planteriorPublic = path.resolve(distPath, "planterior");
-  app.use("/planterior-assets", express.static(planteriorPublic));
 
   app.use(express.static(distPath));
 

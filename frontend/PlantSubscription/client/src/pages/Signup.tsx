@@ -44,18 +44,19 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/signup", {
+      const response = await fetch("http://localhost:8080/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email: username, password }),
       });
 
       if (response.ok) {
+        const message = await response.text();
         toast({
           title: "회원가입 성공",
-          description: "환영합니다! 로그인해주세요.",
+          description: message || "환영합니다! 로그인해주세요.",
         });
         setLocation("/login");
       } else {
@@ -69,7 +70,7 @@ export default function Signup() {
     } catch (error) {
       toast({
         title: "오류 발생",
-        description: "회원가입 중 오류가 발생했습니다.",
+        description: "서버에 연결할 수 없습니다. 백엔드가 실행 중인지 확인해주세요.",
         variant: "destructive",
       });
     } finally {

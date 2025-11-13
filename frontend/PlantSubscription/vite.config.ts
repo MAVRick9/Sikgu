@@ -30,11 +30,10 @@ export default defineConfig({
   },
   server: {
     host: "0.0.0.0",
-    port: 5000,
-    strictPort: true,
-    hmr: process.env.REPL_ID !== undefined ? {
+    port: 5173,
+    hmr: {
       clientPort: 443,
-    } : true,
+    },
     fs: {
       strict: true,
       deny: ["**/.*"],
